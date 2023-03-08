@@ -1,0 +1,30 @@
+The problems that comes with a CI(Continuous integration) server includes
+
+CI server maintainance
+Operational overhead to maintain server like jenkins, Nexus, Sonar, Git, e.t.c
+Benefits of continuous integration on AWS includes
+
+Short mean time to repair(MTTR)
+Agile
+No human intervention
+Fault isolation
+No operational overhead
+AWS SERVICES USED FOR THIS PROJECT
+
+Code commit (Version control system)
+Code Artifact (Maven repository)
+Code Build (Build service from AWS)
+Code Deploy (Artifact deployment service)
+Sonar cloud (Sonar cloud based tool)
+Checkstyle (Code analysis from build job)
+Code pipeline (Service to integrate all the jobs together)
+FLOW OF EXECUTION
+
+Login to AWS account
+Code Commit (a) Create code commit repo (b) Create IAM user with code commit policy (c) Generate SSH keys locally (d) Exchange keys with IAM user (e) Put source code from gitgub repo to Code commit repository and push.
+Code Artifact (a) Create an IAM user with code artifact access (b) Install AWS CLI, configure (c) Export auth token (d) Update settings.xml file in source code top level directory with below details (e) Update pom.xml file with repo details.
+Sonar Cloud (a) Create sonar cloud account (b) Generate token (c) Create SSM parameters with sonar details (d) Create build project (e) Update code build role to access SSM parameter store.
+Create notification for SNS or slack.
+Build project (a) Update pom.xml with artifact version with timestamp (b) Create variables in SSM parameter store (c) Create build project (d) Update code build role to access ssm parameter store.
+Create Pipelines (a) Code commit (b) Test code (c) Build (d) Deploy to s3 bucket.
+Test pipeline
